@@ -1,5 +1,9 @@
 //access the <body> elements
 let body = document.body;
+let score = 0;
+let time = 40;
+let currentQuestionIndex;
+
 
 //Code-quiz tittle and instructions.
 //let h1El = document.createElement('h1');
@@ -25,42 +29,50 @@ let body = document.body;
 const questionContainerEl = document.getElementById('question-container');
 const questionEl = document.getElementById('question')
 let answerButtonsEl = document.getElementById('answer-buttons')
-let shuffledQuestions, currentQuestionIndex
+let shuffledQuestions
 //startButtonEl.textContent = 'Start Quiz';
 //startButtonEl.className = "start-btn";
 //startButtonEl.style.margin = "center";
 //startButtonEl.setAttribute ('style', 'color:white; margin:center; text-align:center; background-color:red');
 //body.appendChild(startButtonEl);
 const startButtonEl = document.querySelector("#start-btn").addEventListener('click', startGame) 
+let startButtonElment = document.querySelector("#start-btn")
 let nextButton = document.querySelector('#next-btn')
  
-    function startGame() {
+    function startGame() 
+    {
         
-        startButtonEl.classList.add('hide')
-        shuffledQuestions = question.sort(() => Math.random() - .5)
-        currentQuestionIndex = 0
+        startButtonElment.classList.add('hide')
+        shuffledQuestions = questions.sort(() => .5 -  Math.random())
         questionContainerEl.classList.remove('hide');
         
         setNextQuestion()
     }
 
-        function setNextQuestion() {
-        resetState()
-        showQuestion(shuffledQuestions)[currentQuestionIndex]
+    function setNextQuestion() {
+        for(currentQuestionIndex = 0;currentQuestionIndex<shuffledQuestions.length;currentQuestionIndex++)
+        {
+                resetState()
+                showQuestion(shuffledQuestions[currentQuestionIndex]);
+        }
+        
     }
 
-        function showQuestion(question) {
-        questionEl.innnetText = question.question
+    function showQuestion(question) {
+        console.log(question.question)
+        questionEl.textContent = question.question
         question.answers.forEach(answer => {
-            let button = document.createElement('button')
-            button.innerText = answer.text
-            button.classList.add('btn')
-            if (answer.correct) {
-                button.dataset.correct = answer.correct
-            }
-            button.addEventListener('click', selectAnswer)
-            answerButtonsEl.appendChild(button)
-        })
+        let button = document.createElement('button')
+        button.innerText = answer.text
+        button.classList.add('btn')
+
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+
+        button.addEventListener('click', selectAnswer)
+        answerButtonsEl.appendChild(button)
+    })
     }
     
     function resetState() {
@@ -71,22 +83,26 @@ let nextButton = document.querySelector('#next-btn')
         }        
     }
 
-    function selectAnwer(e) {
+    function selectAnswer(e) {
         let selectedButton = e.target
         let correct = selectedButton.dataset.correct
         setStatusClass(document.body, correct)
         Array.from(answerButtonsEl.children).forEach(button => {
             setStatusClass(button, button.dataset.correct)
         })
-        if (shuffledQuestions.lenght > currentQuestionIndex + 1) {
+        if (shuffledQuestions.length > currentQuestionIndex + 1) {
             nextButton.classList.remove('hide')
         } else {
-            startButtonEl.innerText = 'Restart'
-            startButtonEl.classList.remove('hide')
+            startButtonElment.innerText = 'Restart'
+            startButtonElment.classList.remove('hide')
         }
         }
     
-    
+    function clearStatusClass(element)
+    {
+        element.classList.remove('correct')
+        element.classList.remove('wrong')
+    }
 
     function setStatusClass(element, correct) {
         clearStatusClass(element)
@@ -95,8 +111,9 @@ let nextButton = document.querySelector('#next-btn')
         } else {
             element.classList.add('wrong')
         }
-      }
+    }
     
+
 
 const questions = [
     {
@@ -196,10 +213,10 @@ const questions = [
 //function count
 
 
-//counter
-//let counter = 60
-//let countdown = function(){
-//console.log(counter);
+// counter
+// let counter = 60
+// let countdown = function(){
+// console.log(counter);
 //counter--;
 //if (counter === 0) {
 //    alert("Time is up!");
@@ -207,3 +224,4 @@ const questions = [
    // };/
 //};
 //};
+
