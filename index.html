@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-       
     <title>Code Quiz Challenge</title>
 </head>
 <body>
-    
-   <div class="container">
+
+    <div class="container">
+   
+    <div class="timer">Time: <span id="timeLeft">0</span></div>
+    <div class="score">Score: <span id="currentScore">0</span></div>
+   
+
 
         <div id="question-container" class="hide">
-            <p id="game_score"></p>
-            <p id="time"></p>
+            
+            
             <div id="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Choice A</button>
-                <button class="btn">Choice B</button>
-                <button class="btn">Choice C</button>
-                <button class="btn">Choice D</button>
-            </div>
+            <div id="option1" class="btn-grid options"></div>
+            <div id="option2" class="btn-grid options"></div>
+            <div id="option3" class="btn-grid options"></div>
+            <div id="option4" class="btn-grid options"></div>
+            <p id="correct" class="hide">Correct!</p>
+            <p id="incorrect" class="hide">Incorrect!</p>
+
         </div>
-        
-        <!--<div class="controls">
-            <button id="start-btn" class="start-btn btn"></button>
-        </div>-->
-   </div>
+    </div>
    
 </body>
 <script src="assets/js/game.js"></script> 

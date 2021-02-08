@@ -59,8 +59,8 @@ let nextButton = document.querySelector('#next-btn')
     }
 
     function showQuestion(question) {
-        console.log(question.question)
-        questionEl.textContent = question.question
+        console.log(questions.question)
+        questionEl.textContent = questions.question
         question.answers.forEach(answer => {
         let button = document.createElement('button')
         button.innerText = answer.text
