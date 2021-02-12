@@ -19,6 +19,9 @@ let option3El = document.getElementById('option3');
 let option4El = document.getElementById('option4');
 let answerEl = document.getElementById('')
 let containerEl = document.getElementsByClassName('container')
+let correctAnswer = document.getElementById("correct");
+let incorrectAnswer = document.getElementById("incorrect");
+let optionsEl = document.querySelectorAll('.options')
 
 
 let questions = [
@@ -112,16 +115,16 @@ function questionLoop() {
 }
 
 // replace button values with questions
-function displayQA(questions) {
+function displayQA() {
     
-    for (let i = 0; i < questions.length; i++) {
-        questionEl.textContent = questions[i].question
-        option1El.textContent = questions[i].answers[0].option
-        option2El.textContent = questions[i].answers[1].option
-        option3El.textContent = questions[i].answers[2].option
-        option4El.textContent = questions[i].answers[3].option
+    
+        questionEl.textContent = questions[currentQuestionIndex].question
+        option1El.textContent = questions[currentQuestionIndex].answers[0].option
+        option2El.textContent = questions[currentQuestionIndex].answers[1].option
+        option3El.textContent = questions[currentQuestionIndex].answers[2].option
+        option4El.textContent = questions[currentQuestionIndex].answers[3].option
 
-    }
+    
 
 
     // question.answers.forEach(answer => {
@@ -145,37 +148,50 @@ function displayQA(questions) {
 //     }
 // }
 
-let correctAnswer = document.getElementById("correct");
-let incorrectAnswer = document.getElementById("incorrect");
-let optionsEl = document.querySelectorAll('.options')
-optionsEl.forEach(function (optionsEl) {
-    optionsEl.addEventListener("click", function (event) {
-        event.preventDefault()
-        if (event.target.textContent === questions.answers.correct) {
-       
-            //new score================================
-            score + 20;
-            alert("correct")
-            currentQuestionIndex++
-            setTimeout(function () {
-                correctAnswer.classList.remove("hide")
-            }, 500);
-            setTimeout(function () {
-                correctAnswer.classList.add("hide")
-            }, 3500);
+function rightAnswer () {
+    score = score+20
+    scoreEl.textContent = score;
+            
+    currentQuestionIndex++
+    setTimeout(function () {
+        correctAnswer.classList.remove("hide")
+    }, 0);
+    setTimeout(function () {
+        correctAnswer.classList.add("hide")
+    }, 1000);
+    if (currentQuestionIndex < questions.length) {
+        displayQA()
+   
+    }
+}
 
-
-        } if (event.target.textContent !== questions[currentQuestionIndex].correct) {
-            time = time - 20;
-            alert("wrong")
+function wrongAnswer () {
+    time = time - 20;
+            
             currentQuestionIndex++
             setTimeout(function () {
                 incorrectAnswer.classList.remove("hide")
-            }, 3500);
+            }, 0);
             setTimeout(function () {
                 incorrectAnswer.classList.add("hide")
-            }, 3500);
-        }
+            }, 1000);
+            if (currentQuestionIndex < questions.length) {
+                displayQA()
+    }
+}
+
+
+optionsEl.forEach(function (optionsEl) {
+    optionsEl.addEventListener("click", function (event) {
+        event.preventDefault()
+        console.log(questions[currentQuestionIndex].answers[4].correct)
+        if (event.target.textContent === questions[currentQuestionIndex].answers[4].correct) {
+            rightAnswer();
+            
+        
+        } else if (event.target.textContent !== questions[currentQuestionIndex].answers[4].correct) {
+            wrongAnswer();
+            }
 
     })
 })
