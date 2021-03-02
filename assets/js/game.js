@@ -1,12 +1,13 @@
 var body = document.body;
 
-let h1El = document.createElement('h1');
-h1El.textContent = "Welcome to Coding-Quiz-Challenge";
-h1El.setAttribute('style', 'font-size:40px; color:white; margin:center; text-align:center');
-body.appendChild(h1El);
+// let h1El = document.createElement('h1');
+// h1El.textContent = "Welcome to Coding-Quiz-Challenge";
+// h1El.setAttribute('style', 'font-size:40px; color:white; margin:center; text-align:center');
+// body.appendChild(h1El);
 
 
-
+let h1El = document.getElementById('header');
+let startButtonEl = document.getElementById('start');
 let timeLeftEl = document.getElementById('timeLeft')
 timeLeftEl.setAttribute('style', 'margin:center; color: var(--hue-neutral)')
 let scoreEl = document.getElementById("currentScore")
@@ -22,7 +23,11 @@ let containerEl = document.getElementsByClassName('container')
 let correctAnswer = document.getElementById("correct");
 let incorrectAnswer = document.getElementById("incorrect");
 let optionsEl = document.querySelectorAll('.options')
-
+let finalScoreEl = document.getElementById('finalScore');
+let submitButtonEl = document.getElementById('submitBtn');
+let userNameEl = document.getElementById('userName');
+let scoresListEl = document.getElementById('scoresList');
+let highScoresEl = document.getElementById('highScores');
 
 let questions = [
     {
@@ -67,13 +72,14 @@ let questions = [
     }
 ]
 
-let startButtonEl = document.createElement('button')
-startButtonEl.textContent = 'Start Quiz';
-startButtonEl.className = "start-btn";
-startButtonEl.setAttribute ('style', 'color:white; font-size:20px; display: flex; align-self:center; justify-content: center; text-align:center; background-color:red; padding:10px');
-body.appendChild(startButtonEl);
-startButtonEl = document.querySelector(".start-btn")
+// let startButtonEl = document.createElement('button')
+// startButtonEl.textContent = 'Start Quiz';
+// startButtonEl.className = "start-btn";
+// startButtonEl.setAttribute ('style', 'color:white; font-size:20px; display: flex; align-self:center; justify-content: center; text-align:center; background-color:red; padding:10px');
+// body.appendChild(startButtonEl);
+
 startButtonEl.addEventListener('click', startGame)
+submitButtonEl.addEventListener('click', savedScores)
 
 let score = 0;
 let time = 60;
@@ -102,7 +108,7 @@ function timer() {
     timeLeftEl.textContent = time
     if (time <= 0) {
         clearInterval(timerId) //change to end of game
-        alert('Time is up! Check your final score:')
+        finalScores();
     }
 }
 // make some kind of loop to display questions
@@ -147,6 +153,13 @@ function displayQA() {
 //         displayAnswers(shuffledAnswers[i])
 //     }
 // }
+function finalScores () {
+    clearInterval(timerId)
+    questionContainerEl.classList.add('hide');
+    finalScoreEl.classList.remove('hide');
+
+}
+
 
 function rightAnswer () {
     score = score+20
@@ -162,6 +175,8 @@ function rightAnswer () {
     if (currentQuestionIndex < questions.length) {
         displayQA()
    
+    } else {
+        finalScores()
     }
 }
 
@@ -177,9 +192,12 @@ function wrongAnswer () {
             }, 1000);
             if (currentQuestionIndex < questions.length) {
                 displayQA()
-    }
-}
-
+            
+            } else {
+                finalScores()
+            }
+        }
+        
 
 optionsEl.forEach(function (optionsEl) {
     optionsEl.addEventListener("click", function (event) {
@@ -195,3 +213,20 @@ optionsEl.forEach(function (optionsEl) {
 
     })
 })
+
+function savedScores () {
+    let userName = userNameEl.value.trim();
+    if (userName !=='') {
+        let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+        let newScore = {
+            endScore: score+time,
+            name: userName
+        }
+        highScores.push(newScore);
+        localStorage.setItem('highScores', JSON.stringify(highScores)) 
+        finalScoreEl.classList.add('hide');
+    }
+}
+
+// create function that shows highScoresEl then
+//put info into ul.

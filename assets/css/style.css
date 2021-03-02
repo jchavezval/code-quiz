@@ -2,6 +2,13 @@
     --hue-neutral: 200;
  
 }
+
+h1 {
+    font-size:40px; 
+    color:white;
+    margin:center; 
+    text-align:center;
+}
 body {
     --hue: var(--hue-neutral);
     width: 100vw;
@@ -13,8 +20,15 @@ body {
     align-items: center;
 }
 .start-btn {
-    left: 50%;
-    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    color:white; 
+    font-size:20px; 
+    display: flex; 
+    align-self:center; 
+    justify-content: center; 
+    text-align:center; 
+    padding:10px;
     
     /* margin: 0;
     align-self: center;
