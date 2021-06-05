@@ -1,232 +1,253 @@
-var body = document.body;
-
-// let h1El = document.createElement('h1');
-// h1El.textContent = "Welcome to Coding-Quiz-Challenge";
-// h1El.setAttribute('style', 'font-size:40px; color:white; margin:center; text-align:center');
-// body.appendChild(h1El);
-
-
-let h1El = document.getElementById('header');
-let startButtonEl = document.getElementById('start');
-let timeLeftEl = document.getElementById('timeLeft')
-timeLeftEl.setAttribute('style', 'margin:center; color: var(--hue-neutral)')
-let scoreEl = document.getElementById("currentScore")
-scoreEl.setAttribute('style', 'margin:center; color: var(--hue-neutral)')
-let questionContainerEl = document.getElementById('question-container');
-let questionEl = document.getElementById('question')
-let option1El = document.getElementById('option1');
-let option2El = document.getElementById('option2');
-let option3El = document.getElementById('option3');
-let option4El = document.getElementById('option4');
-let answerEl = document.getElementById('')
-let containerEl = document.getElementsByClassName('container')
-let correctAnswer = document.getElementById("correct");
-let incorrectAnswer = document.getElementById("incorrect");
-let optionsEl = document.querySelectorAll('.options')
-let finalScoreEl = document.getElementById('finalScore');
-let submitButtonEl = document.getElementById('submitBtn');
-let userNameEl = document.getElementById('userName');
-let scoresListEl = document.getElementById('scoresList');
-let highScoresEl = document.getElementById('highScores');
-
-let questions = [
-    {
-        question: "What does HTML stand for?",
-        answers: [
-            { option: "High Text Modern Language" },
-            { option: "Hypertext Markup Language" },
-            { option: "Hyper Text Media Language" },
-            { option: "High Texture Modern Language" },
-            { correct: "Hypertext Markup Language"}
-        ]
-    },
-    {
-        question: "What does CSS stand for?",
-        answers: [
-            { option: "Cascading Style Sheets" },
-            { option: "Cascade Styling Sheets" },
-            { option: "Cascade Style Screens" },
-            { option: "Concatanated Style Sheets" },
-            { correct: "Cascading Style Sheets" }
-        ]
-    },
-    {
-        question: "What does JS stand for?",
-        answers: [
-            { option: "Java Sreen" },
-            { option: "Jada Script" },
-            { option: "Java Script" },
-            { option: "Java Sheets" },
-            { correct: "Java Script" }
-        ]
-    },
-    {
-        question: "What is an h1",
-        answers: [
-            { option: "An HTML element" },
-            { option: "Use to declare font" },
-            { option: "A type of text" },
-            { option: "None of the Above" },
-            { correct: "An HTML element" }
-        ]
-    }
-]
-
-// let startButtonEl = document.createElement('button')
-// startButtonEl.textContent = 'Start Quiz';
-// startButtonEl.className = "start-btn";
-// startButtonEl.setAttribute ('style', 'color:white; font-size:20px; display: flex; align-self:center; justify-content: center; text-align:center; background-color:red; padding:10px');
-// body.appendChild(startButtonEl);
-
-startButtonEl.addEventListener('click', startGame)
-submitButtonEl.addEventListener('click', savedScores)
-
-let score = 0;
-let time = 60;
-let currentQuestionIndex = 0;
-let currentOptionIndex = 0;
-
-
-function questionShuffler() {
-    shuffledQuestions = questions.sort(() => .5 - Math.random())
-}
-let timerId;
-
-function startGame() {
-    startButtonEl.classList.add('hide')
-    h1El.classList.add('hide')
-    questionContainerEl.classList.remove('hide');
-    timerId = setInterval(timer, 1000)
-    timeLeftEl.textContent = time
-    console.log(questions)
-    displayQA(questions);
-    
-}
-
-function timer() {
-    time--;
-    timeLeftEl.textContent = time
-    if (time <= 0) {
-        clearInterval(timerId) //change to end of game
-        finalScores();
-    }
-}
-// make some kind of loop to display questions
-// also checks if the questions
-function questionLoop() {
-
-    for (let i = 0; i < questions.length; i++) {
-        displayQA(questions[i])
-    }
-}
-
-// replace button values with questions
-function displayQA() {
-    
-    
-        questionEl.textContent = questions[currentQuestionIndex].question
-        option1El.textContent = questions[currentQuestionIndex].answers[0].option
-        option2El.textContent = questions[currentQuestionIndex].answers[1].option
-        option3El.textContent = questions[currentQuestionIndex].answers[2].option
-        option4El.textContent = questions[currentQuestionIndex].answers[3].option
+document.addEventListener('DOMContentLoaded', (event) => {
 
     
-
-
-    // question.answers.forEach(answer => {
-    // let button = document.createElement('button')
-    // button.innerText = answer.text
-    // button.classList.add('btn')
-
-    //     if (answer.correct) {
-    //         button.dataset.correct = answer.correct
-    //     }
-
-    //     button.addEventListener('click', selectAnswer)
-    //     answerButtonsEl.appendChild(button)
-    // })
-}
-
-// function LoopAnswers() {
-
-//     for (let i = 0; i < shuffledAnswers.length; i++) {
-//         displayAnswers(shuffledAnswers[i])
-//     }
-// }
-function finalScores () {
-    clearInterval(timerId)
-    questionContainerEl.classList.add('hide');
-    finalScoreEl.classList.remove('hide');
-
-}
-
-
-function rightAnswer () {
-    score = score+20
-    scoreEl.textContent = score;
-            
-    currentQuestionIndex++
-    setTimeout(function () {
-        correctAnswer.classList.remove("hide")
-    }, 0);
-    setTimeout(function () {
-        correctAnswer.classList.add("hide")
-    }, 1000);
-    if (currentQuestionIndex < questions.length) {
-        displayQA()
-   
-    } else {
-        finalScores()
+    // initial variables
+    const startTime = 75;
+    let time = 75;
+    let score = 0;
+    let questionCount = 0;
+    let timeset;
+    let answers = document.querySelectorAll('#quizContent button');
+    
+    
+    // quiz questions and answers
+    let questions = [
+        {
+            title: "Commonly used data types DO NOT include:",
+            choices: ["Strings", "Booleans", "Alerts", "Numbers"],
+            answer: "Alerts"
+        },
+        {
+            title: "JavaScript scripts can be located in what section of an html document?",
+            choices: ["the body", "the head", "all of the above", "none of the above"],
+            answer: "all of the above"
+        },
+        {
+            title: "The condition in an if / else statement is enclosed within _____.",
+            choices: ["Quotes", "Curly brackets", "Parenthesis", "Square brackets"],
+            answer: "Parenthesis"
+        },
+        {
+            title: "Arrays in JavaScript can be used to store _____.",
+            choices: ["Numbers and strings", "Other arrays", "Booleans", "All the above"],
+            answer: "All the above"
+        },
+        {
+            title: "String values must be enclosed within _____ when being assinged to variables",
+            choices: ["Commas", "Curly brackets", "Quotes", "Parenthesis"],
+            answer: "Quotes"
+        },
+        {
+            title: "A very useful tool used during development and debugger for printing content of the debugger is:",
+            choices: ["JavaScript", "Terminal/bash",  "For loops", "Console.log"],
+            answer: "Console.log"
+        },
+        {
+            title: "How can you print “Welcome!” to a pop up window?",
+            choices: ["popup(“Welcome!”);", "insert(“Welcome!”);", "alert(“Welcome!”);", 'window.prompt("Welcome!”);'],
+            answer: "alert(“Welcome!”);"
+        },
+        {
+            title: "Which assigns an array to a variable?",
+            choices: [
+                `var arr = ('a','b','c')`,
+                `let arr = ['a','b','c']`,
+                `arr = [0:'a',1:'b',2:'c']`,
+                `arr var = ['a','b','c']`
+              ],
+            answer: "let arr = ['a','b','c']"
+        },
+        {
+            title: "Using the setInterval() method will call a function until ______  is called?",
+            choices: [`setStop()`, `breakInterval()`, `clearInterval()`, `setTimeout()`],
+            answer: "clearInterval()"
+        },
+      ];
+    
+    
+    // store highscores in local storage
+    let records = [];
+    (localStorage.getItem('records')) ? records = JSON.parse(localStorage.getItem('records')): records = [];
+    
+    
+    // Function to call elements
+    let queryElement = (element) => {
+        return document.querySelector(element);
+    } 
+    
+    
+    // Function to hide/unhide
+    let onlyDisplaySection = (element) => {
+        let sections = document.querySelectorAll("section");
+        Array.from(sections).forEach((userItem) => {
+            userItem.classList.add('hide');
+        });
+        queryElement(element).classList.remove('hide');
     }
-}
-
-function wrongAnswer () {
-    time = time - 20;
-            
-            currentQuestionIndex++
-            setTimeout(function () {
-                incorrectAnswer.classList.remove("hide")
-            }, 0);
-            setTimeout(function () {
-                incorrectAnswer.classList.add("hide")
-            }, 1000);
-            if (currentQuestionIndex < questions.length) {
-                displayQA()
-            
+    
+    
+    // Function to reset HTML display for score
+    let HTMLreset = () => {
+        queryElement('#highScores div').innerHTML = "";
+        let i = 1;
+        records.sort((a,b) => b.score - a.score);
+        Array.from(records).forEach(check => {
+            let scores = document.createElement("div");
+            scores.innerHTML = i + ". " + check.initialRecord + " - " + check.score;
+            queryElement('#highScores div').appendChild(scores);
+            i = i + 1   
+        });
+        i = 0;
+        Array.from(answers).forEach(answer => {
+            answer.classList.remove('disable');
+        });
+    }
+    
+    
+    // Function to set question data
+    let qData = () => {
+        queryElement('#quizContent p').innerHTML = questions[questionCount].title;
+        queryElement('#quizContent button:nth-of-type(1)').innerHTML = `1. ${questions[questionCount].choices[0]}`;
+        queryElement('#quizContent button:nth-of-type(2)').innerHTML = `2. ${questions[questionCount].choices[1]}`;
+        queryElement('#quizContent button:nth-of-type(3)').innerHTML = `3. ${questions[questionCount].choices[2]}`;
+        queryElement('#quizContent button:nth-of-type(4)').innerHTML = `4. ${questions[questionCount].choices[3]}`;
+    }
+    
+    
+    // Function to change question and show whether answer is correct or not
+    let quizUpdate = (answerCopy) => {
+        queryElement('#scoreLabel p').innerHTML = answerCopy;
+        queryElement('#scoreLabel').classList.remove('hidden', scoreLabel());
+        Array.from(answers).forEach(answer => {
+            answer.classList.add('disable');
+        });
+    
+        // Exit quiz if all questions answered
+        setTimeout(() => {
+            if (questionCount === questions.length) {
+                onlyDisplaySection("#finished");
+                time = 0;
+                queryElement('#time').innerHTML = time;
             } else {
-                finalScores()
-            }
-        }
-        
-
-optionsEl.forEach(function (optionsEl) {
-    optionsEl.addEventListener("click", function (event) {
-        event.preventDefault()
-        console.log(questions[currentQuestionIndex].answers[4].correct)
-        if (event.target.textContent === questions[currentQuestionIndex].answers[4].correct) {
-            rightAnswer();
-            
-        
-        } else if (event.target.textContent !== questions[currentQuestionIndex].answers[4].correct) {
-            wrongAnswer();
-            }
-
-    })
-})
-
-function savedScores () {
-    let userName = userNameEl.value.trim();
-    if (userName !=='') {
-        let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-        let newScore = {
-            endScore: score+time,
-            name: userName
-        }
-        highScores.push(newScore);
-        localStorage.setItem('highScores', JSON.stringify(highScores)) 
-        finalScoreEl.classList.add('hide');
+                qData ();
+                Array.from(answers).forEach(answer =>  {
+                    answer.classList.remove('disable');
+                });
+            }    
+        }, 1000);
     }
-}
-
-// create function that shows highScoresEl then
-//put info into ul.
+    
+    
+    // Function for time
+    let Timer = () => {
+        if (time > 0) {
+            time = time - 1;
+            queryElement('#time').innerHTML = time;
+        } else {
+            clearInterval(clock);
+            queryElement('#score').innerHTML = score;
+            onlyDisplaySection("#finished");
+        }
+    }
+    
+    
+    // On intro button click start time and starts giving questions
+    let clock;
+    queryElement("#intro button").addEventListener("click", (e) => {
+        //call above function to set Initial data in questionHolder section
+        qData();
+        onlyDisplaySection("#quizContent");
+        clock = setInterval(Timer, 1000);
+        });
+    
+    
+    // Clears timeout if next question is answered before current timeout is reached or if form element has a requirement not met.
+    let scoreLabel = () => {
+        clearTimeout(timeset);
+        timeset = setTimeout(() => {
+            queryElement('#scoreLabel').classList.add('hidden');
+        }, 1000);
+    }
+    
+    
+    // Creates an answer check
+    Array.from(answers).forEach(check => {
+        check.addEventListener('click', function (event) {
+                // Handles events if a question is answered correctly
+                if (this.innerHTML.substring(3, this.length) === questions[questionCount].answer) {
+                    score = score + 1;
+                    questionCount = questionCount + 1;
+                    quizUpdate("Correct!");
+                }else{
+                // Handles events if a question is answered incorrectly.
+                    time = time - 10;
+                    questionCount = questionCount + 1;
+                    quizUpdate("Wrong!");
+            }
+        });
+    });
+    
+    
+    // Displays error message if initials do not meet requirements
+    let errorLabel = () => {
+        clearTimeout(timeset);
+        timeset = setTimeout(() => {
+                queryElement('#errorLabel').classList.add('hidden');
+        }, 3000);
+    }
+    
+    
+    // alerts of incorrect high score names
+    queryElement("#records button").addEventListener("click", () => {
+        let initialsRecord = queryElement('#initials').value;
+        if (initialsRecord === ''){
+                queryElement('#errorLabel p').innerHTML = "You need at least 1 character.";
+                queryElement('#errorLabel').classList.remove('hidden', errorLabel());
+        } else if (initialsRecord.match(/[[A-Za-z]/) === null) {
+                queryElement('#errorLabel p').innerHTML = "Only letters are allowed.";
+                queryElement('#errorLabel').classList.remove('hidden', errorLabel());
+        } else {
+            //Sends value to current array
+            records.push({
+                "initialRecord": initialsRecord,
+                "score": score
+            });
+            
+            //Sends value to local storage
+            localStorage.setItem('records', JSON.stringify(records));
+            queryElement('#highScores div').innerHTML = '';
+            onlyDisplaySection("#highScores");
+            HTMLreset();
+            queryElement("#initials").value = '';
+        }
+    });
+    
+    
+    // Clears highscores from the html, array and localstorage
+    queryElement("#clearScores").addEventListener("click", () => {
+        records = [];
+        queryElement('#highScores div').innerHTML = "";
+        localStorage.removeItem('records');
+    });
+    
+    // Resets all quiz settings to the default to replay the quiz
+    queryElement("#reset").addEventListener("click", () => {
+        time = startTime;
+        score = 0;
+        questionCount = 0;
+        onlyDisplaySection("#intro");
+    });
+    
+    // If a player pushes the view high scores button in the html view then this abdandons all quiz progress and lets them view the high scores.
+    queryElement("#HScore").addEventListener("click", (e) => {
+        e.preventDefault();
+        clearInterval(clock);
+        queryElement('#time').innerHTML = 0;
+        time = startTime;
+        score = 0;
+        questionCount = 0;
+        onlyDisplaySection("#highScores");
+        HTMLreset();
+        });
+    
+    });

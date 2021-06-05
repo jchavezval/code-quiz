@@ -1,74 +1,173 @@
+html, body {
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    height: 100%;   
+}
+
 :root {
-    --hue-neutral: 200;
- 
+    --primary-color:rgb(56, 9, 109);
+    --secondary-color: rgb(232, 108, 236);
+    --hover-color: rgba(175, 51, 224, 0.904);
+    --answer-color: rgba(128, 128, 128, 0.644);
+
+}
+
+#quizPosition{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 75%;
 }
 
 h1 {
-    font-size:40px; 
-    color:white;
-    margin:center; 
-    text-align:center;
-}
-body {
-    --hue: var(--hue-neutral);
-    width: 100vw;
-    height: 100vh;
-    background-color: hsl(var(--hue), 100%, 20%);
-    
-}
-.starter {
-    align-items: center;
-}
-.start-btn {
-    margin-left: auto;
-    margin-right: auto;
-    color:white; 
-    font-size:20px; 
-    display: flex; 
-    align-self:center; 
-    justify-content: center; 
-    text-align:center; 
-    padding:10px;
-    
-    /* margin: 0;
-    align-self: center;
-    color: tomato;
-    background-color: white;
-    justify-content: center;
-    justify-self: center;
-    align-items: center; */
+    font-size: 2em;
+    margin: 0.5em 0;
 }
 
-.container {
-    width: 800px;
-    max-width: 80%;
-    background-color: white;
+#score-time-wrapper {
+    max-width: 85%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 40px 2px;
+}
+
+#HScore {
+    color:var(--secondary-color);
+    border: none;
+    background: none;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+#timer {
+    font-weight: bold;
+    font-size: 100%;
+}
+
+section {
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+
+#intro {
+    text-align: center;
+    font-weight: bold;
+}
+
+#intro p {
+    font-size: 100%;
+}
+button:hover {
+    background-color: var(--hover-color);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 7.5px 15px;
+    border: none;
     border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 0 10px 2px;
-    align-items: center;
-    margin: auto;
-  
+    cursor: pointer;
+    font-size: 100%;
 }
 
-.questions {
-    --hue: var(--hue-neutral);
-    background-color: cornsilk;
-
-}
-.options:hover {
-    background-color: rgb(220, 255, 228);
-    color: crimson;
-}
-.score {
-    color: var(--hue-neutral);
-   
-}
-
-.timer {
-    color: var(--hue-neutral);
-}
 .hide {
     display: none;
 }
 
+#quizContent button:hover{
+    background-color: var(--hover-color);
+}
+
+#quizContent p {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+#quizContent button{
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    padding: 7.5px 15px;
+    margin: 3px 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+#finished #records {
+    display: flex;
+    align-items: center;
+}
+
+#finished #records input, #finished #records button {
+    margin-left: 10px;
+}
+
+#finished p {
+    font-weight: bold;
+}
+
+#highScores h1 {
+    margin-left: 10px;
+}
+
+#highScores button {
+    margin-left: 10px;
+}
+
+#scoreLabel, #errorLabel {
+    border-top: 1px solid var(--answer-color);
+    color: var(--answer-color);
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: 600;
+    margin: 15px auto;
+}
+
+#scoreLabel p, #errorLabel p {
+    margin-top: 3px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+#highScores div div:nth-child(odd) {
+    background-color: var(--answer-color);
+}
+
+#highScores div div {
+    padding: 7.5px;
+    font-weight: bold;
+}
+
+#highScores button {
+    margin: 5px 2px;
+}
+
+@media only screens and (min-width: 768px) {
+    #quizPosition {
+        min-height: calc(100% - 82px)
+    }
+
+    #finished #records {
+        display: flex;
+        align-items: center;
+    }
+
+    #fnished #records input, #finished #records button{
+        margin-left:10px;
+    }
+
+    #score-time-Wrapper {
+        flex-direction: row;
+    }
+
+    #quizContent {
+        min-width:420px;
+    }
+}
