@@ -1,7 +1,7 @@
-# Week 4's Web APIs Challenge: Code Quiz
+# Web APIs Challenge: Code Quiz
 
 # Working URL
-https://grech17.github.io/week-4-creating-code-quiz/
+https://github.com/jchavezval/code-quiz.git
 
 ## Required
  Build a timed coding quiz with multiple-choice questions. This app will run in the browser, and will feature dynamically updated HTML and CSS powered by JavaScript code
