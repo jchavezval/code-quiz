@@ -1,7 +1,7 @@
 # Web APIs Challenge: Code Quiz
 
 # Working URL
-https://github.com/jchavezval/code-quiz.git
+https://github.com/jchavezval/coding-quiz-challenge.git
 
 ## Required
  Build a timed coding quiz with multiple-choice questions. This app will run in the browser, and will feature dynamically updated HTML and CSS powered by JavaScript code

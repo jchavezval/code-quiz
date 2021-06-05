@@ -4,10 +4,10 @@ html, body {
 }
 
 :root {
-    --primary-color:rgb(56, 9, 109);
-    --secondary-color: rgb(232, 108, 236);
-    --hover-color: rgba(175, 51, 224, 0.904);
-    --answer-color: rgba(128, 128, 128, 0.644);
+    --primary-color:rgb(18, 21, 204);
+    --secondary-color: rgb(108, 117, 236);
+    --hover-color: rgba(51, 146, 224, 0.904);
+    --answer-color: rgba(22, 122, 204, 0.644);
 
 }
 
